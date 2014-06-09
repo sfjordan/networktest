@@ -16,4 +16,4 @@ This script includes a `-v` option if you wish to view the results as they come 
 
 Alfred Workflow
 =======
-Also included is an Alfred workflow, which you can import to invoke the script more easily. To use it, you must have an alias set up: add the line `alias networktest='sh YOUR_PATH/networktest' to your .bash_profile or .bash_rc file.
+Also included is an Alfred workflow, which you can import to invoke the script more easily. To use it, you must have an alias set up: add the line `alias networktest='sh YOUR_PATH/networktest'` to your .bash_profile or .bash_rc file.
