@@ -1,0 +1,70 @@
+#!/bin/bash
+
+if [ $# -ne 0 ]; then
+    if [ $1 == "-v" ]; then
+        python -c 'from termcolor import colored
+print colored("verbose mode enabled","magenta")
+        '
+        verbose=1
+    else
+        echo "usage:  networktest [-v]"
+        echo "\tadd the [-v] option for verbose logging"
+        exit 0
+    fi
+else verbose=0
+fi
+
+python -c 'from termcolor import colored
+print colored("testing packet loss...",attrs=["dark"])'
+if [ $verbose -eq 1 ]; then
+    ping -c 15 8.8.8.8 |tee temp
+else ping -c 15 8.8.8.8 >temp 2>&1
+fi
+python -c '
+from termcolor import colored
+import sys
+f=open("temp","r")
+lines = f.readlines()
+f.close()
+for line in lines:
+	if (line.find("packet") != -1):
+		packetline = line
+packetloss = float(packetline.split(",")[-1].rstrip()[1:].split("%")[0])
+if (packetloss != 100.0):
+	avgtime = float(lines[-1].split("/")[-3])
+else:
+	avgtime = "--"
+if(packetloss > 40.0):
+	packetcolor = "red"
+elif(packetloss > 10.0):
+	packetcolor = "yellow"
+else:
+	packetcolor = "green"
+
+if(avgtime > 160.0):
+	timecolor = "red"
+elif(avgtime > 90.0):
+	timecolor = "yellow"
+else:
+	timecolor = "green"
+
+print colored(str(packetloss)+"% packet loss",packetcolor)
+print colored("avg. ping: "+str(avgtime)+" ms",timecolor)
+
+if (packetloss == 100.0):
+	sys.exit(100)
+'
+if [ $? -eq 100 ]; then
+        echo "-----------"
+        echo "Error: full packet loss"
+        rm temp
+        exit -1
+fi
+rm temp
+
+if [ $verbose -eq 1 ]; then
+    python speedtest.py | tee temp
+    python speedtestparser.py fromfileflag <temp
+    rm temp
+else python speedtest.py | python speedtestparser.py
+fi
