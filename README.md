@@ -7,7 +7,7 @@ It displays and color codes according to quality:
 - upload and download speeds
 
 **REQUIRES THE SPEEDTEST CLIENT SCRIPT:**
-you can get it (here)[https://github.com/sivel/speedtest-cli].
+you can get it [here](https://github.com/sivel/speedtest-cli).
 
 Usage
 =======
