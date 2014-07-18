@@ -1,7 +1,7 @@
 NetworkTest
 ----------------------
 A short set of a couple of python scripts to test the basics of the currently connected network's quality.
-It displays and color codes according to quality:
+It displays and color codes according to quality (green for good, red for bad, yellow for okay):
 - packet loss
 - average ping
 - upload and download speeds
