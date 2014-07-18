@@ -1,6 +1,14 @@
 import sys
 import re
 from termcolor import colored
+
+# Constants for good and okay speed cut-offs:
+GOOD_DL_MIN = 5.0
+OKAY_DL_MIN = 1.5
+
+GOOD_UL_MIN = 2.0 
+OKAY_UL_MIN = 1.0
+
 if (len(sys.argv)==2):
     fromfile = True
 else:
@@ -26,9 +34,9 @@ while 1:
     if(line.find("Download: ") != -1):
     	#print colored
     	dl = line.split(" ")
-    	if(float(dl[1]) > 5.0):
+    	if(float(dl[1]) > GOOD_DL_MIN):
     		dlcolor = "green"
-    	elif(float(dl[1]) > 1.5):
+    	elif(float(dl[1]) > OKAY_DL_MIN):
     		dlcolor = "yellow"
     	else:
     		dlcolor = "red"
@@ -39,9 +47,9 @@ while 1:
     if(line.find("Upload: ") != -1):
     	#print colored
     	ul = line.split(" ")
-    	if(float(ul[1]) > 2.0):
+    	if(float(ul[1]) > GOOD_UL_MIN):
     		ulcolor = "green"
-    	elif(float(ul[1]) > 1.0):
+    	elif(float(ul[1]) > OKAY_UL_MIN):
     		ulcolor = "yellow"
     	else:
     		ulcolor = "red"
