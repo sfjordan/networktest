@@ -6,6 +6,8 @@ It displays and color codes according to quality:
 - average ping
 - upload and download speeds
 
+![](screenshot.png)
+
 **REQUIRES THE SPEEDTEST CLIENT SCRIPT:**
 you can get it [here](https://github.com/sivel/speedtest-cli).
 
